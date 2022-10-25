@@ -25,11 +25,27 @@ function compoundInitialInvestment(principal, interestRate, length, compoundFreq
     return roundedFinalResult
 }
 
-function compoundMonthlyContribution(principal, interestRate, length) {
-    var pmt = principal * 12
+function compoundMonthlyContribution(monthlyContribution, interestRate, length) {
+    var pmt = monthlyContribution * 12
     var compoundedResult = pmt * ((1 + interestRate) ** length - 1) / interestRate
     var roundedResult = Math.round((compoundedResult + Number.EPSILON) * 100 ) / 100;
     return roundedResult
+}
+
+function calculateUpperVariance(interestRate, varianceRange) {
+    return interestRate + varianceRange;
+}
+
+function calculateLowerVariance(interestRate, varianceRange) {
+    return interestRate - varianceRange;
+}
+
+function calculateTotal(compoundedInitialInvestment, compoundedMonthlyContribution, monthlyContribution) {
+    if (monthlyContribution) {
+        return compoundedInitialInvestment + compoundedMonthlyContribution
+    } else {
+        return compoundedInitialInvestment
+    }
 }
 
 app.get('/', (req, res) => {
@@ -40,21 +56,34 @@ app.post('/', function(req, res) {
     var initialInvestment = Number(req.body.initialInvestment);
     var monthlyContribution = Number(req.body.monthlyContribution);
     var lengthInYears = Number(req.body.length);
-    var interestRate = Number(req.body.interestRate)*0.01;
-    var varianceRange = Number(req.body.varianceRange);
+    var interestRate = Number(req.body.interestRate) * 0.01;
+    var varianceRange = Number(req.body.varianceRange) * 0.01;
     var compoundFrequency = req.body.compoundFrequency;
     var compoundFrequency = setCompoundFrequency(compoundFrequency)
 
     var compoundedInitialInvestment = compoundInitialInvestment(initialInvestment, interestRate, lengthInYears, compoundFrequency);
-    console.log(compoundedInitialInvestment);
+    var compoundedMonthlyContribution = compoundMonthlyContribution(monthlyContribution, interestRate, lengthInYears);
 
-    var compoundedMonthlyContribution = compoundMonthlyContribution(initialInvestment, interestRate, lengthInYears);
+    if (varianceRange) {
+        var upperVarianceRate = calculateUpperVariance(interestRate, varianceRange);
+        var lowerVarianceRate = calculateLowerVariance(interestRate, varianceRange);
 
-    if (monthlyContribution > 0) {
-        var finalResult = compoundedInitialInvestment + compoundedMonthlyContribution
-    } else {
-        var finalResult = compoundedInitialInvestment
+        var initialCompoundedUpperVariance = compoundInitialInvestment(initialInvestment, upperVarianceRate, lengthInYears, compoundFrequency);
+        var initialCompoundedLowerVariance = compoundInitialInvestment(initialInvestment, lowerVarianceRate, lengthInYears, compoundFrequency);
+
+        var monthlyCompoundedUpperVariance = compoundMonthlyContribution(monthlyContribution, upperVarianceRate, lengthInYears);
+        var montlyCompoundedLowerVariance = compoundMonthlyContribution(monthlyContribution, lowerVarianceRate, lengthInYears);
+
+        var upperVarianceTotal = calculateTotal(initialCompoundedUpperVariance, monthlyCompoundedUpperVariance, monthlyContribution);
+        var lowerVarianceTotal = calculateTotal(initialCompoundedLowerVariance, montlyCompoundedLowerVariance, monthlyContribution);
     }
+
+    var total = calculateTotal(compoundedInitialInvestment, compoundedMonthlyContribution, monthlyContribution);
+
+    console.log(`Standard Total: ${total}`)
+    console.log(`Upper Total: ${upperVarianceTotal}`)
+    console.log(`Lower Total: ${lowerVarianceTotal}`)
+
 
     // res.send(compoundedResult)
 });
@@ -63,6 +92,10 @@ app.listen(3000, function() {
     console.log('server started on port 3000...')
 });
 
-// all the req.body values needs to have a default value of 0 (except compound frequency)
-    // Or we need to account for them being a ''
-// Finish all the formulas 
+
+// What happens if monthly contrib is negative?
+    // What about any other values?
+    // What happens if lower variance range turns interest rate negative?
+// Some decimals are off
+    // In order: 10, 7, 5, 14, 11
+// Does script work when compound frequency changes?
