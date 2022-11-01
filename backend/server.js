@@ -83,25 +83,21 @@ app.listen(5000, function () {
     console.log('server started on port 5000...')
 });
 
+// TODO:
+// Break up App.jsx into different components
+// Add reset button
+    // Need to use AJAX?
+// Design front end
+// Apply CSS. Bootstrap or other?
+// Display final results below calculate button in the root route
+// Break out routes into handler file?
+
 // components
     // inputBox
     // inputBox label
     // Buttons
 
-// Add reset button
-// Design front end
-// Apply CSS. Bootstrap or other?
-// Break up App.jsx into different components
-// Display final results below calculate button in the root route
-// Break out routes into handler?
-
 // Project inspiration: https://www.investor.gov/financial-tools-calculators/calculators/compound-interest-calculator
 
-// Formulas: 
-// https://www.math.utah.edu/~krtolica/4C.pdf
-// https://courses.byui.edu/MATH_100G/NewTextbook/Chapter3/Section3.3/3.3B_MathExercise.pdf
-// https://www.calculator.net/compound-interest-calculator.html
-// https://www.wallstreetiswaiting.com/running-the-numbers-1/calculating-interest-recurring-payments/
-// https://www.calculatorsoup.com/calculators/financial/compound-interest-calculator.php
 // https://canvasjs.com/react-charts/line-chart/
 // https://blog.logrocket.com/top-5-react-chart-libraries
