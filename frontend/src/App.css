@@ -1,0 +1,21 @@
+.App {
+  text-align: center;
+  color: white;
+  background-color: #218383;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-top: -27.5%;
+  margin-left: -27.5%;
+  width: 50%;
+  height: 50%;
+}
+
+.inputArea {
+  background-color: #00325b;
+  /* text-align: left; */
+}
+
+.buttonArea {
+  background-color: #00325b;  
+}
