@@ -1,21 +1,79 @@
-.App {
-  text-align: center;
-  color: white;
-  background-color: #218383;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  margin-top: -27.5%;
-  margin-left: -27.5%;
-  width: 50%;
-  height: 50%;
-}
-
-.inputArea {
+body {
   background-color: #00325b;
-  /* text-align: left; */
+  color: white;
+  font-family: "Open Sans",sans-serif;
 }
 
-.buttonArea {
-  background-color: #00325b;  
+.calcTitle {
+  text-align: center;
+  color: #f2f2f2;
+}
+
+.stepsText {
+  background-color: #218383;
+  font-size: 1.1em;
+  width: 50%;
+  position: relative;
+  left: 25%;
+  font-weight: 100;
+}
+
+.inputName {
+  width: 50%;
+  display: inline;
+  position: relative;
+  left: 25%;
+  font-size: 1.5rem;
+  /* font-family: "Open Sans"; */
+}
+
+.inputBox {
+  position: absolute;
+  display: inline;
+  right: 25.2%;
+}
+
+.inputDescription {
+  width: 50%;
+  position: relative;
+  left: 25%
+}
+
+.inputDescription {
+  font-size: 0.75em;
+  word-wrap: break-word;
+  width: 25%;
+  padding-top: 0.2%;
+}
+
+.submitButton {
+  background-color: #bf280d;
+  color: white;
+  display:inline-block;
+  border: none;
+  font-weight: 800;
+  line-height: 1.15em;
+  left: 62%;
+  height: 32px;
+  padding: 6px 12px;
+  margin: 10px 10px 20px 0px;
+  position: relative;
+}
+
+.resetButton {
+  background-color: #218383;
+  color: white;
+  display: inline-block;
+  border: none;
+  font-weight: 800;
+  line-height: 1.15em;
+  height: 32px;
+  padding: 6px 12px;
+  margin: 10px 10px 20px 0px;
+  position: relative;
+  left: 62%;
+}
+
+hr {
+  width: 50%;
 }
