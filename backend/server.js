@@ -3,7 +3,6 @@ const bodyParser = require('body-parser');
 
 const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
-// app.use(express.static("/"))
 
 function setCompoundFrequency(compoundFrequency) {
     if (compoundFrequency === 'Annually') {
@@ -43,7 +42,7 @@ app.get('/', (req, res) => {
     res.sendFile("/Users/chriswagner/Desktop/JS WD/ciCalculator/frontend/src/index.js")
 });
 
-app.post('/', function (req, res) {
+app.post('/submit', function (req, res) {
     var inputValues = {
         initialInvestment: req.body.initialInvestment ? Number(req.body.initialInvestment) : 0,
         monthlyContribution: req.body.monthlyContribution ? Number(req.body.monthlyContribution) : 0,
@@ -77,25 +76,24 @@ app.post('/', function (req, res) {
 
     res.redirect('http://127.0.0.1:3000')
     // res.send(`<p>${noVarianceTotal}</p>`)
-});
+})
+
+app.post('/reset', function (req, res) {
+    res.redirect('http://127.0.0.1:3000')
+})
 
 app.listen(5000, function () {
     console.log('server started on port 5000...')
 });
 
 // TODO:
-// Break up App.jsx into different components
-// Add reset button
-    // Need to use AJAX?
-// Design front end
-// Apply CSS. Bootstrap or other?
-// Display final results below calculate button in the root route
+// Finish CSS styling
+    // Use bootstrap or other framework?
+// Calculate and reset buttons need to be fixed to the right side
+// Break up App.jsx into more components?
+// Display final results below calculate button in the /submit route
+// Display graph of final results
 // Break out routes into handler file?
-
-// components
-    // inputBox
-    // inputBox label
-    // Buttons
 
 // Project inspiration: https://www.investor.gov/financial-tools-calculators/calculators/compound-interest-calculator
 

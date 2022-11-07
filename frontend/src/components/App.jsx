@@ -7,6 +7,7 @@ import LabelExplanation from './LabelExplanation';
 import SelectField from './SelectField';
 
 function App() {
+
     return (
         <div>
             <h1 className="calcTitle">Compound Interest Calculator</h1>
@@ -80,8 +81,8 @@ function App() {
                     <LabelExplanation explanation={"Times per year that interest will be compounded."} />
                 </div>
                 <hr />
-                <input class="submitButton" type="submit" value="CALCULATE" />
-                <button class="resetButton" type="button">RESET</button>
+                <input formaction="http://127.0.0.1:5000/submit" class="submitButton" type="submit" name="calculateButton" value="CALCULATE" />
+                <input formaction="http://127.0.0.1:5000/reset" class="resetButton" type="submit" name="resetButton" value="RESET" />
             </form>
             <div>
             </div>
