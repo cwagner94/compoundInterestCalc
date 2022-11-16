@@ -1,15 +1,8 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const session = require('express-session');
 
 const app = express();
-
-app.use(session({
-    secret: "sdfadsfasd",
-    resave: false,
-    saveUninitialized: true,
-}));
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors())
