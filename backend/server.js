@@ -45,14 +45,15 @@ app.get('/', (req, res) => {
     res.sendFile("/Users/chriswagner/Desktop/JS WD/ciCalculator/frontend/src/index.js")
 });
 
-app.get('/submit', function (req, res) {
-    // var finalResult = res.json(test)
-    console.log(`req session: ${req.session}`)
-    console.log(session)
-    res.send(req.session)
-});
+// app.get('/submit', function (req, res) {
+//     // var finalResult = res.json(test)
+//     console.log(`req session: ${req.session}`)
+//     console.log(session)
+//     res.send(req.session)
+// });
 
 app.post('/submit', function (req, res) {
+    console.log(req.body)
     var inputValues = {
         initialInvestment: req.body.initialInvestment ? Number(req.body.initialInvestment) : 0,
         monthlyContribution: req.body.monthlyContribution ? Number(req.body.monthlyContribution) : 0,
@@ -78,15 +79,10 @@ app.post('/submit', function (req, res) {
         var upperVarianceTotal = (initialCompoundedUpperVariance + monthlyCompoundedUpperVariance).toFixed(2);
         var lowerVarianceTotal = (initialCompoundedLowerVariance + montlyCompoundedLowerVariance).toFixed(2);
 
-        console.log(`Upper Total: ${upperVarianceTotal}`)
-        console.log(`Standard Total: ${noVarianceTotal}`)
-        console.log(`Lower Total: ${lowerVarianceTotal}`)
+        // console.log(`Upper Total: ${upperVarianceTotal}`)
+        // console.log(`Standard Total: ${noVarianceTotal}`)
+        // console.log(`Lower Total: ${lowerVarianceTotal}`)
 
-        // var results = {
-        //     noVarianceTotal: noVarianceTotal,
-        //     upperVarianceTotal: upperVarianceTotal ? upperVarianceTotal : noVarianceTotal,
-        //     lowerVarianceTotal: lowerVarianceTotal ? lowerVarianceTotal : noVarianceTotal
-        // }
     }
 
     var results = {
@@ -94,6 +90,15 @@ app.post('/submit', function (req, res) {
         upperVarianceTotal: upperVarianceTotal ? upperVarianceTotal : noVarianceTotal,
         lowerVarianceTotal: lowerVarianceTotal ? lowerVarianceTotal : noVarianceTotal
     }
+
+    // Testing
+    // var results = {
+    //     noVarianceTotal: 12,
+    //     upperVarianceTotal: 87,
+    //     lowerVarianceTotal: 11
+    // }
+
+    res.send(results)
     // res.redirect('http://127.0.0.1:3000')
 })
 

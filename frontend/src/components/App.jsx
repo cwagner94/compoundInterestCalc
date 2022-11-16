@@ -21,6 +21,8 @@ function App() {
         compoundFrequency: 'Annually'
     })
 
+    const [total, setTotal] = useState('')
+
     // fetch('http://localhost:5000/submit')
     //     .then((res) => res.json())
     //     .then((data) => {
@@ -41,17 +43,33 @@ function App() {
                 [field]: input
             }
         })
-        // console.log(inputValues)
     }
 
     function handleSubmit(event) {
-        console.log(inputValues)
+        event.preventDefault();
+        fetch('http://127.0.0.1:5000/submit', {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(inputValues),
+        }).then(async (res) => {
+            var results = await res.json()
+            setTotal(results.noVarianceTotal)
+        }).catch((err) => {
+            console.log(err)
+        })
     }
+
+    // formAction="http://127.0.0.1:5000/submit"
+    // <form method='post' action='http://127.0.0.1:5000/submit' id="userInputs" onSubmit={handleSubmit}>
+    // <input formAction="http://127.0.0.1:5000/submit" className="submitButton" type="submit" name="calculateButton" value="CALCULATE" />
+
 
     return (
         <div>
             <h1 className="calcTitle">Compound Interest Calculator</h1>
-            <form action='http://127.0.0.1:5000' method='post' id="userInputs" onSubmit={handleSubmit}>
+            <form id="userInputs" onSubmit={handleSubmit}>
                 <div className="stepsText">
                     <CalculatorStep step={"Step 1: Initial Investment"} />
                 </div>
@@ -121,11 +139,11 @@ function App() {
                     <LabelExplanation explanation={"Times per year that interest will be compounded."} />
                 </div>
                 <hr />
-                <input formAction="http://127.0.0.1:5000/submit" className="submitButton" type="submit" name="calculateButton" value="CALCULATE" />
+                <input className="submitButton" type="submit" name="calculateButton" value="CALCULATE" />
                 <input formAction="http://127.0.0.1:5000/reset" className="resetButton" type="submit" name="resetButton" value="RESET" />
             </form>
             <div className="calcResults">
-                <CalcResults years={inputValues.lengthInYears} noVarianceResult={0} />
+                <CalcResults years={inputValues.lengthInYears} noVarianceResult={total} />
             </div>
             <hr />
         </div>
