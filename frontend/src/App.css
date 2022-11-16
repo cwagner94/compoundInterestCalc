@@ -77,3 +77,14 @@ body {
 hr {
   width: 50%;
 }
+
+.calcResults {
+  text-align: center;
+  background-color: #218383;
+  width: 50%;
+
+  font-size: 1.1em;
+  position: relative;
+  left: 25%;
+  font-weight: 100;
+}

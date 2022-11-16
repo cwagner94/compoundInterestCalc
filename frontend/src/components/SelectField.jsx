@@ -3,7 +3,7 @@ import SelectFieldOption from './SelectFieldOption'
 
 function SelectField(props) {
     return (
-        <select name={props.name} id={props.id}>
+        <select name={props.name} id={props.id} onChange={props.onChange}>
             <SelectFieldOption value={"Annually"} text={"Annually"} />
             <SelectFieldOption value={"Semiannually"} text={"Semiannually"} />
             <SelectFieldOption value={"Quarterly"} text={"Quarterly"} />
