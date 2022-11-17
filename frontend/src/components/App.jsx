@@ -8,31 +8,18 @@ import SelectField from './SelectField';
 import CalcResults from './CalcResults';
 
 function App() {
-
-    // const [calcResult, setCalcResult] = useState('0');
-    // const [years, setYears] = useState('0')
-
     const [inputValues, setInputValues] = useState({
-        initialInvestment: '',
-        monthlyContribution: '',
-        lengthInYears: '',
-        interestRate: '',
-        varianceRange: '',
+        initialInvestment: "",
+        monthlyContribution: "",
+        lengthInYears: "",
+        interestRate: "",
+        varianceRange: "",
         compoundFrequency: 'Annually'
     })
 
     const [total, setTotal] = useState('')
 
-    // fetch('http://localhost:5000/submit')
-    //     .then((res) => res.json())
-    //     .then((data) => {
-    //         console.log(data)
-    //         setCalcResult(data.noVarianceTotal)
-    //         setYears(data.years)
-    //     })
-    //     .catch((err) => {
-    //         console.log(err)
-    //     })
+    const [isFilledOut, setIsFilledOut] = useState(false)
 
     function handleChange(event) {
         const field = event.target.name
@@ -46,25 +33,26 @@ function App() {
     }
 
     function handleSubmit(event) {
-        event.preventDefault();
-        fetch('http://127.0.0.1:5000/submit', {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(inputValues),
-        }).then(async (res) => {
-            var results = await res.json()
-            setTotal(results.noVarianceTotal)
-        }).catch((err) => {
-            console.log(err)
-        })
+        if (event.nativeEvent.submitter.name === 'calculateButton') {
+            setIsFilledOut(true)
+            event.preventDefault();
+            fetch('http://127.0.0.1:5000/submit', {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(inputValues)
+            }).then(async (res) => {
+                var results = await res.json()
+                setTotal(results.noVarianceTotal)
+            }).catch((err) => {
+                console.log(err)
+            })
+        } else if (event.nativeEvent.submitter.name === 'resetButton') {
+            setIsFilledOut(false)
+            fetch('http://127.0.0.1:5000/reset')
+        }
     }
-
-    // formAction="http://127.0.0.1:5000/submit"
-    // <form method='post' action='http://127.0.0.1:5000/submit' id="userInputs" onSubmit={handleSubmit}>
-    // <input formAction="http://127.0.0.1:5000/submit" className="submitButton" type="submit" name="calculateButton" value="CALCULATE" />
-
 
     return (
         <div>
@@ -140,11 +128,11 @@ function App() {
                 </div>
                 <hr />
                 <input className="submitButton" type="submit" name="calculateButton" value="CALCULATE" />
-                <input formAction="http://127.0.0.1:5000/reset" className="resetButton" type="submit" name="resetButton" value="RESET" />
+                <input className="resetButton" type="submit" name="resetButton" value="RESET" />
             </form>
-            <div className="calcResults">
+            {isFilledOut && <div className="calcResults">
                 <CalcResults years={inputValues.lengthInYears} noVarianceResult={total} />
-            </div>
+            </div>}
             <hr />
         </div>
     )

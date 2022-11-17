@@ -5,7 +5,8 @@ const cors = require('cors');
 const app = express();
 
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(cors())
+app.use(bodyParser.json());
+app.use(cors());
 
 function setCompoundFrequency(compoundFrequency) {
     if (compoundFrequency === 'Annually') {
@@ -45,15 +46,7 @@ app.get('/', (req, res) => {
     res.sendFile("/Users/chriswagner/Desktop/JS WD/ciCalculator/frontend/src/index.js")
 });
 
-// app.get('/submit', function (req, res) {
-//     // var finalResult = res.json(test)
-//     console.log(`req session: ${req.session}`)
-//     console.log(session)
-//     res.send(req.session)
-// });
-
 app.post('/submit', function (req, res) {
-    console.log(req.body)
     var inputValues = {
         initialInvestment: req.body.initialInvestment ? Number(req.body.initialInvestment) : 0,
         monthlyContribution: req.body.monthlyContribution ? Number(req.body.monthlyContribution) : 0,
@@ -79,10 +72,6 @@ app.post('/submit', function (req, res) {
         var upperVarianceTotal = (initialCompoundedUpperVariance + monthlyCompoundedUpperVariance).toFixed(2);
         var lowerVarianceTotal = (initialCompoundedLowerVariance + montlyCompoundedLowerVariance).toFixed(2);
 
-        // console.log(`Upper Total: ${upperVarianceTotal}`)
-        // console.log(`Standard Total: ${noVarianceTotal}`)
-        // console.log(`Lower Total: ${lowerVarianceTotal}`)
-
     }
 
     var results = {
@@ -91,18 +80,10 @@ app.post('/submit', function (req, res) {
         lowerVarianceTotal: lowerVarianceTotal ? lowerVarianceTotal : noVarianceTotal
     }
 
-    // Testing
-    // var results = {
-    //     noVarianceTotal: 12,
-    //     upperVarianceTotal: 87,
-    //     lowerVarianceTotal: 11
-    // }
-
     res.send(results)
-    // res.redirect('http://127.0.0.1:3000')
 })
 
-app.post('/reset', function (req, res) {
+app.get('/reset', function (req, res) {
     res.redirect('http://127.0.0.1:3000')
 })
 
@@ -110,22 +91,17 @@ app.listen(5000, function () {
     console.log('server started on port 5000...')
 });
 
-// Task: Convert form post request to fetch post request
-// Why: To be able to use .then() or a callback, in order to get the results back on the frontend
-
-// We want both the input values and the calculated values available on the frontend. But, handled on the backend
+// Next:
+// lengthInYears needs to be < 100
+// Create graph
 
 // TODO:
-// Finish CSS styling
-// Use bootstrap or other framework?
 // Calculate and reset buttons need to be fixed to the right side
+// Finish CSS styling (Bootstrap or other framework?)
+
+// Improvements/Refactoring:
 // Break up App.jsx into more components
-// Display final results below calculate button in the /submit route
-// Display graph of final results
-// Break out routes into handler file?
-// Apply css directly to components, not in App.jsx
-// Does secret in app.use(session()) need to be an ENV variable?
+// Apply CSS to components, not App.jsx
+// Break out routes into handler file
 
 // Project inspiration: https://www.investor.gov/financial-tools-calculators/calculators/compound-interest-calculator
-// https://canvasjs.com/react-charts/line-chart/
-// https://blog.logrocket.com/top-5-react-chart-libraries
