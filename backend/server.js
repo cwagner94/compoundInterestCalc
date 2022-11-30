@@ -92,12 +92,13 @@ app.listen(5000, function () {
 });
 
 // Next:
-// lengthInYears needs to be < 100
-// Create graph
+// Calculate all years in between 0 and lengthInYears
 
 // TODO:
+// lengthInYears needs to be < 100
 // Calculate and reset buttons need to be fixed to the right side
 // Finish CSS styling (Bootstrap or other framework?)
+// Style graph
 
 // Improvements/Refactoring:
 // Break up App.jsx into more components
