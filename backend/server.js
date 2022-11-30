@@ -22,23 +22,65 @@ function setCompoundFrequency(compoundFrequency) {
     }
 }
 
-function compoundInitialInvestment(inputValues, interestRate) {
+// function compoundInitialInvestment(inputValues, interestRate) {
+//     if (interestRate === 0) {
+//         return inputValues.initialInvestment
+//     } else {
+//         var compoundedResult = inputValues.initialInvestment * (1 + interestRate / inputValues.compoundFrequency) ** (inputValues.compoundFrequency * inputValues.lengthInYears)
+//         return compoundedResult
+//     }
+// }
+
+// function compoundMonthlyContribution(inputValues, interestRate) {
+//     var pmt = inputValues.monthlyContribution * 12
+//     if (interestRate === 0) {
+//         return pmt * inputValues.lengthInYears
+//     } else {
+//         var compoundedResult = pmt * ((1 + (interestRate / inputValues.compoundFrequency)) ** (inputValues.lengthInYears * inputValues.compoundFrequency) - 1) / interestRate
+//         return compoundedResult
+//     }
+// }
+
+function compoundInitialInvestment(inputValues, interestRate, year) {
     if (interestRate === 0) {
         return inputValues.initialInvestment
     } else {
-        var compoundedResult = inputValues.initialInvestment * (1 + interestRate / inputValues.compoundFrequency) ** (inputValues.compoundFrequency * inputValues.lengthInYears)
+        var compoundedResult = inputValues.initialInvestment * (1 + interestRate / inputValues.compoundFrequency) ** (inputValues.compoundFrequency * year)
         return compoundedResult
     }
 }
 
-function compoundMonthlyContribution(inputValues, interestRate) {
+function compoundMonthlyContribution(inputValues, interestRate, year) {
     var pmt = inputValues.monthlyContribution * 12
     if (interestRate === 0) {
-        return pmt * inputValues.lengthInYears
+        return pmt * year
     } else {
-        var compoundedResult = pmt * ((1 + (interestRate / inputValues.compoundFrequency)) ** (inputValues.lengthInYears * inputValues.compoundFrequency) - 1) / interestRate
+        var compoundedResult = pmt * ((1 + (interestRate / inputValues.compoundFrequency)) ** (year * inputValues.compoundFrequency) - 1) / interestRate
         return compoundedResult
     }
+}
+
+function compound(inputValues, interestRate) {
+    var years = inputValues.lengthInYears;
+    var yearlyTotals = []
+    for (let year = 0; year <= years; year++) {
+        var compoundedInitialInvestment = compoundInitialInvestment(inputValues, interestRate, year);
+        var compoundedMonthlyContribution = compoundMonthlyContribution(inputValues, interestRate, year);
+        var total = (compoundedInitialInvestment + compoundedMonthlyContribution).toFixed(2);
+        yearlyTotals.push(total);
+    }
+    return yearlyTotals
+}
+
+function calculateContributions(inputValues) {
+    var years = inputValues.lengthInYears;
+    var contribution = inputValues.initialInvestment;
+    var yearlyContributions = [contribution.toString()]
+    for (let year = 0; year < years; year++) {
+        contribution += (inputValues.monthlyContribution * 12)
+        yearlyContributions.push(contribution.toFixed(2))
+    }
+    return yearlyContributions
 }
 
 app.get('/', (req, res) => {
@@ -56,29 +98,33 @@ app.post('/submit', function (req, res) {
         compoundFrequency: setCompoundFrequency(req.body.compoundFrequency)
     }
 
-    var compoundedInitialInvestment = compoundInitialInvestment(inputValues, inputValues.interestRate);
-    var compoundedMonthlyContribution = compoundMonthlyContribution(inputValues, inputValues.interestRate);
-    var noVarianceTotal = (compoundedInitialInvestment + compoundedMonthlyContribution).toFixed(2)
+    var noVarianceTotal = compound(inputValues, inputValues.interestRate)
+    var yearlyContributions = calculateContributions(inputValues)
 
     if (inputValues.varianceRange) {
         inputValues.varianceRange && ([inputValues.upperVarianceRate, inputValues.lowerVarianceRate] = [inputValues.interestRate + inputValues.varianceRange, inputValues.interestRate - inputValues.varianceRange])
 
-        var initialCompoundedUpperVariance = compoundInitialInvestment(inputValues, inputValues.upperVarianceRate);
-        var initialCompoundedLowerVariance = compoundInitialInvestment(inputValues, inputValues.lowerVarianceRate);
-
-        var monthlyCompoundedUpperVariance = compoundMonthlyContribution(inputValues, inputValues.upperVarianceRate);
-        var montlyCompoundedLowerVariance = compoundMonthlyContribution(inputValues, inputValues.lowerVarianceRate);
-
-        var upperVarianceTotal = (initialCompoundedUpperVariance + monthlyCompoundedUpperVariance).toFixed(2);
-        var lowerVarianceTotal = (initialCompoundedLowerVariance + montlyCompoundedLowerVariance).toFixed(2);
-
+        var upperVarianceTotal = compound(inputValues, inputValues.upperVarianceRate)
+        var lowerVarianceTotal = compound(inputValues, inputValues.lowerVarianceRate)
     }
+
+    // var results = {
+    //     noVarianceTotal: noVarianceTotal,
+    //     upperVarianceTotal: upperVarianceTotal ? upperVarianceTotal : noVarianceTotal,
+    //     lowerVarianceTotal: lowerVarianceTotal ? lowerVarianceTotal : noVarianceTotal,
+    //     yearlyContributions: yearlyContributions
+    // }
+
 
     var results = {
         noVarianceTotal: noVarianceTotal,
-        upperVarianceTotal: upperVarianceTotal ? upperVarianceTotal : noVarianceTotal,
-        lowerVarianceTotal: lowerVarianceTotal ? lowerVarianceTotal : noVarianceTotal
+        upperVarianceTotal: upperVarianceTotal && upperVarianceTotal,
+        lowerVarianceTotal: lowerVarianceTotal && lowerVarianceTotal,
+        yearlyContributions: yearlyContributions
     }
+
+
+    // console.log(results)
 
     res.send(results)
 })
@@ -91,10 +137,14 @@ app.listen(5000, function () {
     console.log('server started on port 5000...')
 });
 
+// Why is graph beginning with empty object?
+
 // Next:
-// Calculate all years in between 0 and lengthInYears
+// Add contributions as line in graph, if no variance total selected
 
 // TODO:
+// Add comma to total if necessary (ex. $92,304.25)
+// Add table in addition to graph
 // lengthInYears needs to be < 100
 // Calculate and reset buttons need to be fixed to the right side
 // Finish CSS styling (Bootstrap or other framework?)

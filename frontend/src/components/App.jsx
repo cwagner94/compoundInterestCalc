@@ -21,6 +21,8 @@ function App() {
 
     const [isFilledOut, setIsFilledOut] = useState(false)
 
+    const [calcResults, setCalcResults] = useState({})
+
     function handleChange(event) {
         const field = event.target.name
         const input = event.target.value
@@ -44,7 +46,8 @@ function App() {
                 body: JSON.stringify(inputValues)
             }).then(async (res) => {
                 var results = await res.json()
-                setTotal(results.noVarianceTotal)
+                setCalcResults(results)
+                setTotal(results.noVarianceTotal.at(-1))
             }).catch((err) => {
                 console.log(err)
             })
@@ -131,7 +134,7 @@ function App() {
                 <input className="resetButton" type="submit" name="resetButton" value="RESET" />
             </form>
             {isFilledOut && <div className="calcResults">
-                <CalcResults years={inputValues.lengthInYears} noVarianceResult={total} />
+                <CalcResults years={inputValues.lengthInYears} noVarianceResult={total} data={calcResults} />
             </div>}
             <hr />
         </div>

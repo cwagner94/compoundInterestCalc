@@ -1,30 +1,44 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Line } from 'react-chartjs-2';
 import { Chart as ChartJS } from 'chart.js/auto'
 import '../Graph.css'
 
 function Graph(props) {
 
-    const data = props.data
+    const calcData = props.data
+
+    // var labelsData = []
+    // for (let i = 0; i < calcData.noVarianceTotal.length; i++) {
+    //     labelsData.push(`Year ${i}`)
+    // }
+
+    // const [calcData, setCalcData] = useState(props.data)
+    // const [labelsData, setLabelsData] = useState([])
+
+    // for (let i = 0; i < calcData.noVarianceTotal.length; i++) {
+    //     setLabelsData(previous => {
+    //         return [...previous, `Year ${i}`]
+    //     })
+    // }
 
     const graphData = {
-        labels: ["Year 0", "Year 1", "Year 2", 'a', 'h'],
+        // labels: labelsData,
+        labels: ['1', '2', '3'],
         datasets: [
             {
-                tension: 0.1,
                 label: "No Variance Total",
-                data: [33, 10, 12, 18, 29, 5],
-                borderColor: "black"
+                data: calcData.noVarianceTotal,
+                borderColor: "red"
             },
             {
                 label: "Upper Variance Total",
-                data: [33, 25, 35, 51, 2, 50],
-                borderColor: "black",
+                data: calcData.upperVarianceTotal,
+                borderColor: "blue",
             },
             {
                 label: "Low Variance Total",
-                data: [33, 20, 2, 33, 59, 12],
-                borderColor: "black"
+                data: calcData.lowerVarianceTotal,
+                borderColor: "green"
             }
         ]
     };

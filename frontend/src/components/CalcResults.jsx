@@ -12,7 +12,7 @@ function CalcResults(props) {
             <h3>
                 Please remember that slight adjustments in any of those variables can affect the outcome. Reset the calculator and provide different figures to show different scenarios.
             </h3>
-            <Graph />
+            <Graph data={props.data} />
         </div>
     )
 }
