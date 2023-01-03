@@ -22,25 +22,6 @@ function setCompoundFrequency(compoundFrequency) {
     }
 }
 
-// function compoundInitialInvestment(inputValues, interestRate) {
-//     if (interestRate === 0) {
-//         return inputValues.initialInvestment
-//     } else {
-//         var compoundedResult = inputValues.initialInvestment * (1 + interestRate / inputValues.compoundFrequency) ** (inputValues.compoundFrequency * inputValues.lengthInYears)
-//         return compoundedResult
-//     }
-// }
-
-// function compoundMonthlyContribution(inputValues, interestRate) {
-//     var pmt = inputValues.monthlyContribution * 12
-//     if (interestRate === 0) {
-//         return pmt * inputValues.lengthInYears
-//     } else {
-//         var compoundedResult = pmt * ((1 + (interestRate / inputValues.compoundFrequency)) ** (inputValues.lengthInYears * inputValues.compoundFrequency) - 1) / interestRate
-//         return compoundedResult
-//     }
-// }
-
 function compoundInitialInvestment(inputValues, interestRate, year) {
     if (interestRate === 0) {
         return inputValues.initialInvestment
@@ -84,7 +65,6 @@ function calculateContributions(inputValues) {
 }
 
 app.get('/', (req, res) => {
-    // res.sendFile(__dirname + '/public/index.html')
     res.sendFile("/Users/chriswagner/Desktop/JS WD/ciCalculator/frontend/src/index.js")
 });
 
@@ -123,9 +103,6 @@ app.post('/submit', function (req, res) {
         yearlyContributions: yearlyContributions
     }
 
-
-    // console.log(results)
-
     res.send(results)
 })
 
@@ -137,22 +114,22 @@ app.listen(5000, function () {
     console.log('server started on port 5000...')
 });
 
-// Why is graph beginning with empty object?
 
-// Next:
-// Add contributions as line in graph, if no variance total selected
+// Bugs
+    // 25, 34, 18, 7, 2: On the graph, noVarianceTotal is .1, needs to be .10
 
-// TODO:
-// Add comma to total if necessary (ex. $92,304.25)
-// Add table in addition to graph
-// lengthInYears needs to be < 100
-// Calculate and reset buttons need to be fixed to the right side
-// Finish CSS styling (Bootstrap or other framework?)
-// Style graph
+// TODO
+    // Add comma to total if necessary (ex. $92,304.25) dynamically, based on number of digits
+    // Yearly contributions first default value needs to be a float, rounded to 2 decimals
+    // Add contributions as line in graph, if no variance total selected
+    // Add table in addition to graph
+    // lengthInYears needs to be < 100 (or similar)
+    // Calculate and reset buttons need to be fixed to the right side
+    // Finish CSS styling (Bootstrap or other framework?)
 
-// Improvements/Refactoring:
-// Break up App.jsx into more components
-// Apply CSS to components, not App.jsx
-// Break out routes into handler file
+// Improvements/Refactoring
+    // Break up App.jsx into more components
+    // Apply CSS to components, not App.jsx
+    // Break out routes into handler file
 
 // Project inspiration: https://www.investor.gov/financial-tools-calculators/calculators/compound-interest-calculator

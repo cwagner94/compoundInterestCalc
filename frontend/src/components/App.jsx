@@ -7,6 +7,7 @@ import LabelExplanation from './LabelExplanation';
 import SelectField from './SelectField';
 import CalcResults from './CalcResults';
 
+
 function App() {
     const [inputValues, setInputValues] = useState({
         initialInvestment: "",
@@ -17,11 +18,14 @@ function App() {
         compoundFrequency: 'Annually'
     })
 
-    const [total, setTotal] = useState('')
-
     const [isFilledOut, setIsFilledOut] = useState(false)
 
-    const [calcResults, setCalcResults] = useState({})
+    const [calcResults, setCalcResults] = useState({
+        noVarianceTotal: [],
+        upperVarianceTotal: [],
+        lowerVarianceTotal: [],
+        yearlyContributions: []
+    })
 
     function handleChange(event) {
         const field = event.target.name
@@ -47,7 +51,6 @@ function App() {
             }).then(async (res) => {
                 var results = await res.json()
                 setCalcResults(results)
-                setTotal(results.noVarianceTotal.at(-1))
             }).catch((err) => {
                 console.log(err)
             })
@@ -56,6 +59,32 @@ function App() {
             fetch('http://127.0.0.1:5000/reset')
         }
     }
+
+    var labelsData = [];
+    calcResults.noVarianceTotal.forEach((currentValue, index) => {
+        labelsData.push(`Year ${index}`)
+    })
+
+    const graphData = {
+        labels: labelsData,
+        datasets: [
+            {
+                label: "No Variance Total",
+                data: calcResults.noVarianceTotal,
+                borderColor: "red"
+            },
+            {
+                label: "Upper Variance Total",
+                data: calcResults.upperVarianceTotal,
+                borderColor: "blue",
+            },
+            {
+                label: "Low Variance Total",
+                data: calcResults.lowerVarianceTotal,
+                borderColor: "green"
+            }
+        ]
+    };
 
     return (
         <div>
@@ -134,7 +163,7 @@ function App() {
                 <input className="resetButton" type="submit" name="resetButton" value="RESET" />
             </form>
             {isFilledOut && <div className="calcResults">
-                <CalcResults years={inputValues.lengthInYears} noVarianceResult={total} data={calcResults} />
+                <CalcResults years={inputValues.lengthInYears} calcResults={calcResults} graphData={graphData} />
             </div>}
             <hr />
         </div>
