@@ -11,6 +11,7 @@ body {
 
 .stepsText {
   background-color: #218383;
+  /* padding: 0px 10px; */
   font-size: 1.1em;
   width: 50%;
   position: relative;
@@ -24,6 +25,7 @@ body {
   position: relative;
   left: 25%;
   font-size: 1.5rem;
+  /* padding: 0px 10px; */
   /* font-family: "Open Sans"; */
 }
 
@@ -31,12 +33,14 @@ body {
   position: absolute;
   display: inline;
   right: 25.2%;
+  /* right: 24%; */
 }
 
 .inputDescription {
   width: 50%;
   position: relative;
-  left: 25%
+  left: 25%;
+  padding: 0px 10px;
 }
 
 .inputDescription {
@@ -88,3 +92,7 @@ hr {
   left: 25%;
   font-weight: 100;
 }
+
+input[type='number']{
+    width: 145px;
+} 

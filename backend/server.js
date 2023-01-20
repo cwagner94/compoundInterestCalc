@@ -56,7 +56,7 @@ function compound(inputValues, interestRate) {
 function calculateContributions(inputValues) {
     var years = inputValues.lengthInYears;
     var contribution = inputValues.initialInvestment;
-    var yearlyContributions = [contribution.toString()]
+    var yearlyContributions = [contribution.toFixed(2)]
     for (let year = 0; year < years; year++) {
         contribution += (inputValues.monthlyContribution * 12)
         yearlyContributions.push(contribution.toFixed(2))
@@ -88,14 +88,6 @@ app.post('/submit', function (req, res) {
         var lowerVarianceTotal = compound(inputValues, inputValues.lowerVarianceRate)
     }
 
-    // var results = {
-    //     noVarianceTotal: noVarianceTotal,
-    //     upperVarianceTotal: upperVarianceTotal ? upperVarianceTotal : noVarianceTotal,
-    //     lowerVarianceTotal: lowerVarianceTotal ? lowerVarianceTotal : noVarianceTotal,
-    //     yearlyContributions: yearlyContributions
-    // }
-
-
     var results = {
         noVarianceTotal: noVarianceTotal,
         upperVarianceTotal: upperVarianceTotal && upperVarianceTotal,
@@ -114,22 +106,13 @@ app.listen(5000, function () {
     console.log('server started on port 5000...')
 });
 
-
-// Bugs
-    // 25, 34, 18, 7, 2: On the graph, noVarianceTotal is .1, needs to be .10
-
-// TODO
-    // Add comma to total if necessary (ex. $92,304.25) dynamically, based on number of digits
-    // Yearly contributions first default value needs to be a float, rounded to 2 decimals
-    // Add contributions as line in graph, if no variance total selected
-    // Add table in addition to graph
-    // lengthInYears needs to be < 100 (or similar)
+// Graph needs to not change if user removes variance range and doesn't click calculate
+// Break out routes into handler file
+// CSS styling
     // Calculate and reset buttons need to be fixed to the right side
-    // Finish CSS styling (Bootstrap or other framework?)
-
-// Improvements/Refactoring
-    // Break up App.jsx into more components
-    // Apply CSS to components, not App.jsx
-    // Break out routes into handler file
+// After user inputs in a field, add $ or % and commas if necessary
+// Add a readme to github w/ screenshot of output
+// Remove all unused files
 
 // Project inspiration: https://www.investor.gov/financial-tools-calculators/calculators/compound-interest-calculator
+// Has value that ends in .10: 25,34,18,7,2

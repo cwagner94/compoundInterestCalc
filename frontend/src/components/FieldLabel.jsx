@@ -1,11 +1,13 @@
 import React from 'react';
+import '../App.css'
 
 function FieldLabel(props) {
     return (
-        <label htmlFor={props.htmlFor}>{props.labelText}
-        </label>
+        <div className="inputName">
+            <label htmlFor={props.htmlFor}>{props.labelText}
+            </label>
+        </div>
     )
 }
 
 export default FieldLabel
-

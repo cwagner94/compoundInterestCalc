@@ -1,10 +1,13 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Graph from './Graph'
 
 
 function CalcResults(props) {
+    var nf = new Intl.NumberFormat('en-US', {
+        minimumFractionDigits: 2
+    });
 
-    const total = props.calcResults.noVarianceTotal.at(-1)
+    const total = nf.format(props.calcResults.noVarianceTotal.at(-1))
 
     return (
         <div>
