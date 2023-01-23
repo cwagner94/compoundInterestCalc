@@ -7,7 +7,6 @@ import LabelExplanation from './LabelExplanation';
 import SelectField from './SelectField';
 import CalcResults from './CalcResults';
 
-
 function App() {
     var nf = new Intl.NumberFormat('en-US', {
         minimumFractionDigits: 2
@@ -37,6 +36,8 @@ function App() {
         lowerVarianceTotal: [],
         yearlyContributions: []
     })
+
+    const [hasVariance, setHasVariance] = useState()
 
     function handleChange(event) {
         const field = event.target.name
@@ -68,6 +69,13 @@ function App() {
                     upperVariance: nf.format(parseFloat(inputValues.interestRate) + parseFloat(inputValues.varianceRange)),
                     lowerVariance: nf.format(inputValues.interestRate - inputValues.varianceRange)
                 })
+
+                if (parseFloat(inputValues.varianceRange)) {
+                    setHasVariance(true)
+                } else {
+                    setHasVariance(false)
+                }
+
             }).catch((err) => {
                 console.log(err)
             })
@@ -91,7 +99,7 @@ function App() {
         }
     ];
 
-    if (inputValues.varianceRange) {
+    if (hasVariance) {
         data.push({
             label: `Variance Above (${displayValues.upperVariance}%)`,
             data: calcResults.upperVarianceTotal,
