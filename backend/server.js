@@ -106,12 +106,17 @@ app.listen(5000, function () {
     console.log('server started on port 5000...')
 });
 
-// Break out routes into handler file
-// After user inputs in a field, add $ or % and commas if necessary
-// Break up App.css into separate files for each component
-// Calculate and reset buttons need to be fixed to the right side
-// When hovering over graph, points on line need to bulge out more
+
 // Add a readme to github w/ screenshot of output
 // Remove all unused files
+
+// Improvements:
+// Break up App.css into separate files for each component
+// After user inputs in a field, add $ or % and commas if necessary
+// Folder structure
+    // backend --> routes --> handler file
+// CSS
+    // Calculate and reset buttons need to be fixed to the right side
+
 
 // Project inspiration: https://www.investor.gov/financial-tools-calculators/calculators/compound-interest-calculator

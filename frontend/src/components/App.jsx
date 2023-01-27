@@ -96,6 +96,8 @@ function App() {
             data: calcResults.noVarianceTotal,
             borderColor: "red",
             backgroundColor: "red",
+            pointStyle: "rectRot",
+            hoverRadius: 5
         }
     ];
 
@@ -105,13 +107,16 @@ function App() {
             data: calcResults.upperVarianceTotal,
             borderColor: "blue",
             backgroundColor: "blue",
+            pointStyle: 'rectRounded',
+            hoverRadius: 5
         })
         data.push(
             {
                 label: `Variance Below (${displayValues.lowerVariance}%)`,
                 data: calcResults.lowerVarianceTotal,
                 borderColor: "green",
-                backgroundColor: "green"
+                backgroundColor: "green",
+                hoverRadius: 5
             })
     } else {
         data.push(
@@ -119,7 +124,9 @@ function App() {
                 label: `Total Contributions`,
                 data: calcResults.yearlyContributions,
                 borderColor: "green",
-                backgroundColor: "green"
+                backgroundColor: "green",
+                pointStyle: 'rectRounded',
+                hoverRadius: 5
             })
     };
 
