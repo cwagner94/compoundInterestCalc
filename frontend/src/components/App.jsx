@@ -94,8 +94,8 @@ function App() {
         {
             label: `Future Value (${displayValues.interestRate}%)`,
             data: calcResults.noVarianceTotal,
-            borderColor: "red",
-            backgroundColor: "red",
+            borderColor: "#bf280d",
+            backgroundColor: "#bf280d",
             pointStyle: "rectRot",
             hoverRadius: 5
         }
@@ -105,8 +105,8 @@ function App() {
         data.push({
             label: `Variance Above (${displayValues.upperVariance}%)`,
             data: calcResults.upperVarianceTotal,
-            borderColor: "blue",
-            backgroundColor: "blue",
+            borderColor: "rgb(0, 50, 91)",
+            backgroundColor: "rgb(0, 50, 91)",
             pointStyle: 'rectRounded',
             hoverRadius: 5
         })
@@ -114,8 +114,8 @@ function App() {
             {
                 label: `Variance Below (${displayValues.lowerVariance}%)`,
                 data: calcResults.lowerVarianceTotal,
-                borderColor: "green",
-                backgroundColor: "green",
+                borderColor: "#218383",
+                backgroundColor: "#218383",
                 hoverRadius: 5
             })
     } else {
@@ -123,8 +123,8 @@ function App() {
             {
                 label: `Total Contributions`,
                 data: calcResults.yearlyContributions,
-                borderColor: "green",
-                backgroundColor: "green",
+                borderColor: "#218383",
+                backgroundColor: "#218383",
                 pointStyle: 'rectRounded',
                 hoverRadius: 5
             })
