@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import '../App.css'
+import '../CSS/App.css'
 import CalculatorStep from './CalculatorStep'
 import FieldLabel from './FieldLabel';
 import InputField from './InputField';

@@ -9,47 +9,6 @@ body {
   color: #f2f2f2;
 }
 
-.stepsText {
-  background-color: #218383;
-  /* padding: 0px 10px; */
-  font-size: 1.1em;
-  width: 50%;
-  position: relative;
-  left: 25%;
-  font-weight: 100;
-}
-
-.inputName {
-  width: 50%;
-  display: inline;
-  position: relative;
-  left: 25%;
-  font-size: 1.5rem;
-  /* padding: 0px 10px; */
-  /* font-family: "Open Sans"; */
-}
-
-.inputBox {
-  position: absolute;
-  display: inline;
-  right: 25.2%;
-  /* right: 24%; */
-}
-
-.inputDescription {
-  width: 50%;
-  position: relative;
-  left: 25%;
-  padding: 0px 10px;
-}
-
-.inputDescription {
-  font-size: 0.75em;
-  word-wrap: break-word;
-  width: 25%;
-  padding-top: 0.2%;
-}
-
 .submitButton {
   background-color: #bf280d;
   color: white;
@@ -78,10 +37,6 @@ body {
   left: 62%;
 }
 
-hr {
-  width: 50%;
-}
-
 .calcResults {
   text-align: center;
   background-color: #218383;
@@ -93,6 +48,6 @@ hr {
   font-weight: 100;
 }
 
-input[type='number']{
-    width: 145px;
-} 
+hr {
+  width: 50%;
+}

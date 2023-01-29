@@ -1,5 +1,5 @@
 import React from 'react';
-import '../App.css'
+import '../CSS/FieldLabel.css'
 
 function FieldLabel(props) {
     return (

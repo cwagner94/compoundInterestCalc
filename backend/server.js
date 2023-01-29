@@ -107,16 +107,13 @@ app.listen(5000, function () {
 });
 
 
-// Add a readme to github w/ screenshot of output
-// Remove all unused files
-
-// Improvements:
-// Break up App.css into separate files for each component
 // After user inputs in a field, add $ or % and commas if necessary
+// CSS
+    // Fonts
+    // Calculate and reset buttons need to be fixed to the right side
+// Add a readme to github w/ screenshot of output
 // Folder structure
     // backend --> routes --> handler file
-// CSS
-    // Calculate and reset buttons need to be fixed to the right side
-
+// Remove all unused files
 
 // Project inspiration: https://www.investor.gov/financial-tools-calculators/calculators/compound-interest-calculator

@@ -1,6 +1,6 @@
 import React from 'react'
 import SelectFieldOption from './SelectFieldOption'
-import '../App.css'
+import '../CSS/SelectField.css'
 
 function SelectField(props) {
     return (

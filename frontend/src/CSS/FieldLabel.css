@@ -1,0 +1,9 @@
+.inputName {
+    width: 50%;
+    display: inline;
+    position: relative;
+    left: 25%;
+    font-size: 1.5rem;
+    /* padding: 0px 10px; */
+    /* font-family: "Open Sans"; */
+  }

@@ -1,5 +1,6 @@
 import React from 'react';
 import Graph from './Graph'
+import '../CSS/CalcResults.css'
 
 
 function CalcResults(props) {
@@ -10,7 +11,7 @@ function CalcResults(props) {
     const total = nf.format(props.calcResults.noVarianceTotal.at(-1))
 
     return (
-        <div>
+        <div className='calc-results'>
             <h2>The Results Are In</h2>
             <h3>In {props.years} years, you will have ${total}</h3>
             <h3>

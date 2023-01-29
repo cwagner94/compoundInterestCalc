@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Line } from 'react-chartjs-2';
 import { Chart as ChartJS } from 'chart.js/auto'
-import '../Graph.css'
+import '../CSS/Graph.css'
 
 function Graph(props) {
 
@@ -39,9 +39,3 @@ function Graph(props) {
 }
 
 export default Graph;
-
-
-// label: (tooltipItem, data) => {
-//     var label = data.datasets[tooltipItem.datasetIndex].label || '';
-//     return label + ' ' + (Math.round(tooltipItem.yLabel * 100) / 100).toFixed(2);
-// }
