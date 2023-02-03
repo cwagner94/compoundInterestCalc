@@ -108,12 +108,16 @@ app.listen(5000, function () {
 
 
 // After user inputs in a field, add $ or % and commas if necessary
+    // search: react how to format input box text as I am typing it
+// Add x and y axis descriptions (Dollars for y and years for x)
 // CSS
+    // Use flex boxes
     // Fonts
     // Calculate and reset buttons need to be fixed to the right side
 // Add a readme to github w/ screenshot of output
 // Folder structure
     // backend --> routes --> handler file
 // Remove all unused files
+// Merge to main branch
 
 // Project inspiration: https://www.investor.gov/financial-tools-calculators/calculators/compound-interest-calculator

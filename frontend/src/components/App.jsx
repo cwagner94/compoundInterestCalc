@@ -40,6 +40,7 @@ function App() {
     const [hasVariance, setHasVariance] = useState()
 
     function handleChange(event) {
+        console.log(event.target)
         const field = event.target.name
         const input = event.target.value
         setInputValues(previous => {
