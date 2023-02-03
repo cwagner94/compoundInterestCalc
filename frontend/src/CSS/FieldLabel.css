@@ -3,7 +3,10 @@
     display: inline;
     position: relative;
     left: 25%;
-    font-size: 1.5rem;
-    /* padding: 0px 10px; */
-    /* font-family: "Open Sans"; */
+    font-size: 1em;
+    line-height: 1.5rem;
+    font-family: "Open Sans",sans-serif;
+    font-weight: bold;
+    color: #fff;
+    padding: 10px 10px;
   }

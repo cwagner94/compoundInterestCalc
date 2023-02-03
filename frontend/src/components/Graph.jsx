@@ -6,6 +6,14 @@ import '../CSS/Graph.css'
 function Graph(props) {
 
     const options = {
+        scales: {
+            y: {
+                title: {
+                    display: true,
+                    text: 'US Dollars ($)'
+                }
+            }
+        },
         plugins: {
             tooltip: {
                 mode: 'index',

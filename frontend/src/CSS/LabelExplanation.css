@@ -1,13 +1,12 @@
 .inputDescription {
-    width: 50%;
-    position: relative;
-    left: 25%;
-    padding: 0px 10px;
-  }
-  
-.inputDescription {
     font-size: 0.75em;
+    line-height: 1.3em;
+    color: #eaeaea;
     word-wrap: break-word;
     width: 25%;
-    padding-top: 0.2%;
+    position: relative;
+    left: 25%;
+    font-family: "Open Sans",sans-serif;
+    font-weight: 600;
+    padding: 10px 10px;
   }

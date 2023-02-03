@@ -107,12 +107,13 @@ app.listen(5000, function () {
 });
 
 
+// Add "* Denotes a required field" and relevant *'s
 // After user inputs in a field, add $ or % and commas if necessary
     // search: react how to format input box text as I am typing it
-// Add x and y axis descriptions (Dollars for y and years for x)
 // CSS
     // Use flex boxes
     // Fonts
+        // Think we need to import font-family: "Arvo",serif
     // Calculate and reset buttons need to be fixed to the right side
 // Add a readme to github w/ screenshot of output
 // Folder structure

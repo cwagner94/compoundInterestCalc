@@ -139,6 +139,7 @@ function App() {
     return (
         <div>
             <h1 className="calcTitle">Compound Interest Calculator</h1>
+            <h3 className="calcDescription">Determine how much your money can grow using the power of compound interest.</h3>
             <form id="userInputs" onSubmit={handleSubmit}>
                 <CalculatorStep step={"Step 1: Initial Investment"} />
                 <FieldLabel htmlFor={"initialInvestment"} labelText={"Initial Investment: "} />

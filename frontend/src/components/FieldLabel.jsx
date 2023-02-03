@@ -4,7 +4,8 @@ import '../CSS/FieldLabel.css'
 function FieldLabel(props) {
     return (
         <div className="inputName">
-            <label htmlFor={props.htmlFor}>{props.labelText}
+            <label htmlFor={props.htmlFor}>
+                {props.labelText}
             </label>
         </div>
     )

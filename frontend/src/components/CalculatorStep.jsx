@@ -3,8 +3,10 @@ import '../CSS/CalculatorStep.css'
 
 function CalculatorStep(props) {
     return (
-        <div className="stepsText">
-            <h3>{props.step}</h3>
+        <div>
+            <h3 className="stepsText">
+                {props.step}
+            </h3>
         </div>
     )
 }
