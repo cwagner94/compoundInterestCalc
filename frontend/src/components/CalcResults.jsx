@@ -13,8 +13,8 @@ function CalcResults(props) {
     return (
         <div className='calc-results'>
             <h2 className='results-header'>The Results Are In</h2>
-            <hr className='results-hr' />
             <h3 className='results' >In {props.years} years, you will have ${total}</h3>
+            <hr className='results-hr' />
             <h3 className='results-explanation'>
                 The chart below shows an estimate of how much your initial savings will grow over time, according to the interest rate and compounding schedule you specified.
             </h3>
