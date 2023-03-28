@@ -137,7 +137,7 @@ function App() {
     };
 
     return (
-        <div>
+        <div className='calcBody'>
             <h1 className="calcTitle">Compound Interest Calculator</h1>
             <h3 className="calcDescription">Determine how much your money can grow using the power of compound interest.</h3>
             <form id="userInputs" onSubmit={handleSubmit}>

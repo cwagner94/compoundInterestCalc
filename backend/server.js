@@ -107,11 +107,9 @@ app.listen(5000, function () {
 });
 
 
-// Add "* Denotes a required field" and relevant *'s
 // After user inputs in a field, add $ or % and commas if necessary
     // search: react how to format input box text as I am typing it
 // CSS
-    // Use flex boxes
     // Fonts
         // Think we need to import font-family: "Arvo",serif
     // Calculate and reset buttons need to be fixed to the right side
@@ -120,5 +118,7 @@ app.listen(5000, function () {
     // backend --> routes --> handler file
 // Remove all unused files
 // Merge to main branch
+// Make dynamic when page size changes
+// If user input is 1 year, then display "year" not "years"
 
 // Project inspiration: https://www.investor.gov/financial-tools-calculators/calculators/compound-interest-calculator
