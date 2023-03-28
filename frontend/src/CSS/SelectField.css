@@ -4,3 +4,11 @@
     right: 25.2%;
     /* right: 24%; */
   }
+
+  .selectBox {
+    position: absolute;
+    display: inline;
+    right: 25.2%;
+    width: 200px;
+    height: 30px;    
+  }

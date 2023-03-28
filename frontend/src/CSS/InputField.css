@@ -6,5 +6,6 @@
   }
 
 input[type='number']{
-    width: 145px;
+    width: 120px;
+    height: 25px;
 } 
