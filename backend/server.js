@@ -1,9 +1,12 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const cors = require('cors');
 
 const app = express();
+
 app.use(bodyParser.urlencoded({ extended: true }));
-// app.use(express.static("/"))
+app.use(bodyParser.json());
+app.use(cors());
 
 function setCompoundFrequency(compoundFrequency) {
     if (compoundFrequency === 'Annually') {
@@ -19,85 +22,103 @@ function setCompoundFrequency(compoundFrequency) {
     }
 }
 
-function compoundInitialInvestment(inputValues, interestRate) {
+function compoundInitialInvestment(inputValues, interestRate, year) {
     if (interestRate === 0) {
         return inputValues.initialInvestment
     } else {
-        var compoundedResult = inputValues.initialInvestment * (1 + interestRate / inputValues.compoundFrequency) ** (inputValues.compoundFrequency * inputValues.lengthInYears)
+        var compoundedResult = inputValues.initialInvestment * (1 + interestRate / inputValues.compoundFrequency) ** (inputValues.compoundFrequency * year)
         return compoundedResult
     }
 }
 
-function compoundMonthlyContribution(inputValues, interestRate) {
+function compoundMonthlyContribution(inputValues, interestRate, year) {
     var pmt = inputValues.monthlyContribution * 12
     if (interestRate === 0) {
-        return pmt * inputValues.lengthInYears
+        return pmt * year
     } else {
-        var compoundedResult = pmt * ((1 + (interestRate / inputValues.compoundFrequency)) ** (inputValues.lengthInYears * inputValues.compoundFrequency) - 1) / interestRate
+        var compoundedResult = pmt * ((1 + (interestRate / inputValues.compoundFrequency)) ** (year * inputValues.compoundFrequency) - 1) / interestRate
         return compoundedResult
     }
+}
+
+function compound(inputValues, interestRate) {
+    var years = inputValues.lengthInYears;
+    var yearlyTotals = []
+    for (let year = 0; year <= years; year++) {
+        var compoundedInitialInvestment = compoundInitialInvestment(inputValues, interestRate, year);
+        var compoundedMonthlyContribution = compoundMonthlyContribution(inputValues, interestRate, year);
+        var total = (compoundedInitialInvestment + compoundedMonthlyContribution).toFixed(2);
+        yearlyTotals.push(total);
+    }
+    return yearlyTotals
+}
+
+function calculateContributions(inputValues) {
+    var years = inputValues.lengthInYears;
+    var contribution = inputValues.initialInvestment;
+    var yearlyContributions = [contribution.toFixed(2)]
+    for (let year = 0; year < years; year++) {
+        contribution += (inputValues.monthlyContribution * 12)
+        yearlyContributions.push(contribution.toFixed(2))
+    }
+    return yearlyContributions
 }
 
 app.get('/', (req, res) => {
-    // res.sendFile(__dirname + '/public/index.html')
     res.sendFile("/Users/chriswagner/Desktop/JS WD/ciCalculator/frontend/src/index.js")
 });
 
-app.post('/', function (req, res) {
+app.post('/submit', function (req, res) {
     var inputValues = {
         initialInvestment: req.body.initialInvestment ? Number(req.body.initialInvestment) : 0,
         monthlyContribution: req.body.monthlyContribution ? Number(req.body.monthlyContribution) : 0,
-        lengthInYears: req.body.length ? Number(req.body.length) : 0,
+        lengthInYears: req.body.lengthInYears ? Number(req.body.lengthInYears) : 0,
         interestRate: req.body.interestRate ? Number(req.body.interestRate) * 0.01 : 0,
         varianceRange: req.body.varianceRange ? (Number(req.body.varianceRange) * 0.01) : 0,
         compoundFrequency: setCompoundFrequency(req.body.compoundFrequency)
     }
 
-    var compoundedInitialInvestment = compoundInitialInvestment(inputValues, inputValues.interestRate);
-    var compoundedMonthlyContribution = compoundMonthlyContribution(inputValues, inputValues.interestRate);
-    var noVarianceTotal = (compoundedInitialInvestment + compoundedMonthlyContribution).toFixed(2)
+    var noVarianceTotal = compound(inputValues, inputValues.interestRate)
+    var yearlyContributions = calculateContributions(inputValues)
 
     if (inputValues.varianceRange) {
         inputValues.varianceRange && ([inputValues.upperVarianceRate, inputValues.lowerVarianceRate] = [inputValues.interestRate + inputValues.varianceRange, inputValues.interestRate - inputValues.varianceRange])
 
-        var initialCompoundedUpperVariance = compoundInitialInvestment(inputValues, inputValues.upperVarianceRate);
-        var initialCompoundedLowerVariance = compoundInitialInvestment(inputValues, inputValues.lowerVarianceRate);
-
-        var monthlyCompoundedUpperVariance = compoundMonthlyContribution(inputValues, inputValues.upperVarianceRate);
-        var montlyCompoundedLowerVariance = compoundMonthlyContribution(inputValues, inputValues.lowerVarianceRate);
-
-        var upperVarianceTotal = (initialCompoundedUpperVariance + monthlyCompoundedUpperVariance).toFixed(2);
-        var lowerVarianceTotal = (initialCompoundedLowerVariance + montlyCompoundedLowerVariance).toFixed(2);
-
-        console.log(`Upper Total: ${upperVarianceTotal}`)
-        console.log(`Standard Total: ${noVarianceTotal}`)
-        console.log(`Lower Total: ${lowerVarianceTotal}`)
-
+        var upperVarianceTotal = compound(inputValues, inputValues.upperVarianceRate)
+        var lowerVarianceTotal = compound(inputValues, inputValues.lowerVarianceRate)
     }
 
+    var results = {
+        noVarianceTotal: noVarianceTotal,
+        upperVarianceTotal: upperVarianceTotal && upperVarianceTotal,
+        lowerVarianceTotal: lowerVarianceTotal && lowerVarianceTotal,
+        yearlyContributions: yearlyContributions
+    }
+
+    res.send(results)
+})
+
+app.get('/reset', function (req, res) {
     res.redirect('http://127.0.0.1:3000')
-    // res.send(`<p>${noVarianceTotal}</p>`)
-});
+})
 
 app.listen(5000, function () {
     console.log('server started on port 5000...')
 });
 
-// TODO:
-// Break up App.jsx into different components
-// Add reset button
-    // Need to use AJAX?
-// Design front end
-// Apply CSS. Bootstrap or other?
-// Display final results below calculate button in the root route
-// Break out routes into handler file?
 
-// components
-    // inputBox
-    // inputBox label
-    // Buttons
+// After user inputs in a field, add $ or % and commas if necessary
+    // search: react how to format input box text as I am typing it
+// CSS
+    // Fonts
+        // Think we need to import font-family: "Arvo",serif
+    // Calculate and reset buttons need to be fixed to the right side
+// Add a readme to github w/ screenshot of output
+// Folder structure
+    // backend --> routes --> handler file
+// Remove all unused files
+// Merge to main branch
+// Make dynamic when page size changes
+// If user input is 1 year, then display "year" not "years"
 
 // Project inspiration: https://www.investor.gov/financial-tools-calculators/calculators/compound-interest-calculator
-
-// https://canvasjs.com/react-charts/line-chart/
-// https://blog.logrocket.com/top-5-react-chart-libraries

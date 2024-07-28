@@ -1,7 +1,21 @@
 import React from 'react';
+import '../CSS/InputField.css'
 
 function InputField(props) {
-    return <input type={props.type} min={props.min} step={props.step} name={props.name} placeholder={props.placeholder} />
+
+    return (
+        <div className="inputBox">
+            <input
+                type={props.type}
+                min={props.min}
+                step={props.step}
+                name={props.name}
+                placeholder={props.placeholder}
+                onChange={props.onChange}
+                value={props.value}
+            />
+        </div>
+    )
 }
 
 export default InputField

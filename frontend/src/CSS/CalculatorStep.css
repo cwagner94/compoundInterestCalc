@@ -1,0 +1,12 @@
+.stepsText {
+    background-color: #218383;
+    font-size: 1.1em;
+    width: 49%;
+    position: relative;
+    left: 25%;
+    font-weight: 400;
+    /* font-family: "Arvo",serif; */
+    line-height: 1.2;
+    padding: 10px;
+  }
+  

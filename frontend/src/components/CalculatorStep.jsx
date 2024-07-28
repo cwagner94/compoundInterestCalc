@@ -1,7 +1,14 @@
 import React from 'react';
+import '../CSS/CalculatorStep.css'
 
 function CalculatorStep(props) {
-    return <h3>{props.step}</h3>
+    return (
+        <div>
+            <h3 className="stepsText">
+                {props.step}
+            </h3>
+        </div>
+    )
 }
 
 export default CalculatorStep
