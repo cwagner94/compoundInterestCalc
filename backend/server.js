@@ -65,7 +65,7 @@ function calculateContributions(inputValues) {
 }
 
 app.get('/', (req, res) => {
-    res.sendFile("/Users/chriswagner/Desktop/JS WD/ciCalculator/frontend/src/index.js")
+    res.sendFile("/Users/chriswagner/compoundInterestCalc/frontend/src/index.js")
 });
 
 app.post('/submit', function (req, res) {
